@@ -1,0 +1,20 @@
+#!/usr/bin/env python
+
+from urlparse import urlparse
+import sys
+from subprocess import call
+
+if sys.argv > 1 and 'postgres' in sys.argv[1]:
+    url = sys.argv[1]
+    o = urlparse(url)
+    
+    call_args = [
+        "psql",
+        "-d", o.path[1:],
+        "-h", o.hostname,
+        "-p", str(o.port),
+        "-U", o.username,
+        "-W"
+        ]
+
+    call(call_args)
